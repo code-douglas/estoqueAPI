@@ -4,9 +4,10 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-const port = process.env.PORT || 5000;
+const port = process.env.SERVER_PORT || 5000;
+const mongoURI = process.env.MONGO_URI_BASE;
 
-connectDB()
+connectDB(mongoURI)
   .then(() => {
     app.listen(port, () => {
       console.log(`Servidor rodando em http://localhost:${port}`);
