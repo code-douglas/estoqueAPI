@@ -38,3 +38,36 @@ export const getAllProducts = async(req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+export const updateProduct = async(req, res) => {
+  try {
+    const { id } = req.params;
+    const product = await Product.findByIdAndUpdate(id, req.body, {
+      new: true,
+      runValidators: true,
+    });
+
+    if(!product) return res.status(404).json({ message: 'Product not found' });
+
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(400).json({
+      error: error.message
+    });
+  }
+};
+
+export const deleteProduct = async(req, res) => {
+  try {
+    const { id } = req.params;
+    await Product.findByIdAndDelete(id);
+
+    res.status(200).json({
+      message: 'Product successfully deleted'
+    });
+  } catch (error) {
+    res.status(400).json({
+      error: error.message
+    });
+  }
+};
