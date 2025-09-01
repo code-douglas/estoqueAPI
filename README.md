@@ -1,11 +1,14 @@
 # API para gerenciamento de estoque.
 
-Esta é uma API RESTful completa para gerenciamento de estoque, desenvolvida com Node.js, Express, Mongoose, e com autenticação de usuário via Firebase. O objetivo do projeto é fornecer endpoints robustos para controlar o ciclo de vida de produtos e transações, 
+Esta é uma API RESTful completa para gerenciamento de estoque, desenvolvida com Node.js, Express, Mongoose, e com autenticação de usuário via JWT. O objetivo do projeto é fornecer endpoints robustos para controlar o ciclo de vida de produtos e transações, 
 garantindo segurança através da autenticação por token.
 
 ## Funcionalidades
 
-* Autenticação: Proteção de rotas sensíveis com tokens de autenticação.
+* Autenticação: 
+  * `POST /usuario/registrar`: Cadastra um usuário ao banco de dados com a "role" user.
+  * `POST /usuario/login`: Verifica as credenciais do usuário e cria um token JWT com validade de 1 hora
+  
 * Produtos:
   * `GET /produtos`: Lista todos os produtos no estoque.
   * `GET /produtos/:id`: Busca um produto específico por ID.
@@ -23,27 +26,27 @@ A estrutura do projeto segue um padrão MVC (Model-View-Controller) simplificado
 ```bash
 
 src/
-├── config/             # Configurações do banco de dados (db.mjs)
-├── controllers/        # Lógica de negócio da aplicação
+├── config/             
+├── controllers/        
 │   ├── productController.mjs
 │   └── transactionsController.mjs
-├── middlewares/        # Funções intermediárias, como autenticação
+├── middlewares/        
 │   └── authMiddleware.mjs
-├── models/             # Modelos de dados do Mongoose
+├── models/             
 │   ├── Product.mjs
 │   └── Transaction.mjs
-├── routes/             # Definição das rotas da API
+├── routes/             
 │   ├── productsRoutes.mjs
 │   └── transactionsRoutes.mjs
-├── app.mjs             # Configuração principal do Express
-└── server.mjs          # Servidor principal, inicia a aplicação
+├── app.mjs             
+└── server.mjs          
 ```
 ## Tecnologias Utilizadas: 
 
 * Node.js: Ambiente de execução JavaScript.
 * Express: Framework web para Node.js.
 * Mongoose: Modelagem de objetos MongoDB para Node.js.
-* Firebase: Utilizado para autenticação segura.
+* JWT: Utilizado para autenticação segura.
 
 ## Como Rodar o Projeto
 
@@ -57,7 +60,7 @@ cd estoqueAPI
 npm install
 ```
 3. Configure as variáveis de ambiente:
-* Crie um arquivo .env na raiz do projeto e adicione as suas chaves de configuração, incluindo as credenciais do Firebase.
+* Crie um arquivo .env na raiz do projeto e adicione as suas chaves de configuração, incluindo o secret token do JWT. Consta no repositório um exemplo de como deverá ser feito.
 4. Inicie o servidor:
 ```bash
 node start
